@@ -62,8 +62,15 @@ const updatedDate = computed(() => {
 <template>
   <Transition name="cf-point-sheet">
     <aside v-if="point" class="cf-point-sheet">
-      <button class="cf-point-sheet__close" type="button" aria-label="Cerrar punto" @click="emit('close')">
-        <span class="material-symbols-outlined">close</span>
+      <div class="cf-point-sheet__handle" aria-hidden="true"></div>
+
+      <button
+        class="cf-point-sheet__close"
+        type="button"
+        aria-label="Cerrar información del punto"
+        @click="emit('close')"
+      >
+        <span aria-hidden="true">×</span>
       </button>
 
       <div class="cf-point-sheet__hero">
@@ -92,7 +99,7 @@ const updatedDate = computed(() => {
           <h2>{{ point.name }}</h2>
 
           <p>
-            {{ point.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Punto participante dentro de la Ruta de los Dulces Acanceh.' }}
+            {{ point.description || 'Punto participante dentro de la Ruta de los Dulces Acanceh.' }}
           </p>
         </div>
       </div>

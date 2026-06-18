@@ -4,7 +4,7 @@ import * as maplibregl from 'maplibre-gl'
 import type {
   GeoJSONSource,
   LngLatBoundsLike,
-  Map,
+  Map as MapLibreMap,
   MapLayerMouseEvent,
   StyleSpecification,
 } from 'maplibre-gl'
@@ -192,7 +192,7 @@ type AnimatedSpriteImage = {
   width: number
   height: number
   data: Uint8ClampedArray
-  onAdd: (mapInstance: Map) => void
+  onAdd: (mapInstance: MapLibreMap) => void
   render: () => boolean
 }
 
@@ -208,14 +208,14 @@ const emit = defineEmits<{
 const routeStore = useRouteStore()
 const mapContainer = ref<HTMLDivElement | null>(null)
 
-let map: Map | null = null
+let map: MapLibreMap | null = null
 let eventIconId = ''
 let selectedGhostReady = false
 let eventAnimationFrame = 0
 let eventAnimationRequest: number | null = null
 
-const loadedIconByKey = new Map<string, string>()
-const loadedStatusFallback = new Map<string, string>()
+const loadedIconByKey = new globalThis.Map<string, string>()
+const loadedStatusFallback = new globalThis.Map<string, string>()
 const selectedPoint = ref<RoutePoint | null>(null)
 
 const visiblePoints = computed(() => routeStore.filteredPoints)
@@ -590,14 +590,14 @@ function createAnimatedSpriteImage(options: SpriteOptions & { image: HTMLImageEl
   const sourceFrameWidth = Math.floor(options.image.naturalWidth / options.frames)
   const globalBounds = getGlobalSpriteBounds(options.image, options.frames)
 
-  let mapInstance: Map | null = null
+  let mapInstance: MapLibreMap | null = null
 
   const spriteImage: AnimatedSpriteImage = {
     width: options.outputWidth,
     height: options.outputHeight,
     data: new Uint8ClampedArray(options.outputWidth * options.outputHeight * 4),
 
-    onAdd(nextMap: Map) {
+    onAdd(nextMap: MapLibreMap) {
       mapInstance = nextMap
       canvas.width = options.outputWidth
       canvas.height = options.outputHeight
@@ -855,7 +855,10 @@ function addPointLayers() {
         'icon-image': ['get', 'icon_id'],
         'icon-size': selectedGhostSizeExpression,
         'icon-anchor': 'bottom',
-        'icon-offset': ['literal', [SELECTED_GHOST_SPRITE.iconOffsetX, SELECTED_GHOST_SPRITE.iconOffsetY]],
+        'icon-offset': [
+          'literal',
+          [SELECTED_GHOST_SPRITE.iconOffsetX, SELECTED_GHOST_SPRITE.iconOffsetY],
+        ],
         'icon-allow-overlap': true,
         'icon-ignore-placement': true,
         'icon-padding': 0,
@@ -1178,6 +1181,11 @@ function updateEventSource() {
   source.setData(buildEventCollection())
 }
 
+function clearSelection() {
+  selectedPoint.value = null
+  updateSelectedSource()
+}
+
 function getBounds(points: RoutePoint[]): LngLatBoundsLike | null {
   if (!points.length) return null
 
@@ -1193,8 +1201,7 @@ function getBounds(points: RoutePoint[]): LngLatBoundsLike | null {
 function fitToAllPoints(animated = true) {
   if (!map) return
 
-  selectedPoint.value = null
-  updateSelectedSource()
+  clearSelection()
 
   const points = visiblePoints.value.length ? visiblePoints.value : routeStore.publicPoints
   const bounds = getBounds(points)
@@ -1281,6 +1288,7 @@ onUnmounted(() => {
 defineExpose({
   fitToAllPoints,
   flyToDemoEvent,
+  clearSelection,
 })
 </script>
 

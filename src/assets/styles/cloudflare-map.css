@@ -333,41 +333,69 @@ body {
 }
 
 .cf-point-sheet {
-  right: 12px;
-  bottom: calc(12px + env(safe-area-inset-bottom));
-  left: 12px;
+  right: 10px;
+  bottom: calc(10px + env(safe-area-inset-bottom));
+  left: 10px;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: min(86dvh, 720px);
   overflow: hidden;
   border: 1px solid rgba(255, 183, 133, 0.18);
   border-radius: 32px;
   background:
     radial-gradient(circle at 100% 0%, rgba(255, 130, 0, 0.14), transparent 28%),
-    rgba(18, 15, 44, 0.95);
+    rgba(18, 15, 44, 0.96);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.54);
   backdrop-filter: blur(24px);
 }
 
+.cf-point-sheet__handle {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  z-index: 8;
+  width: 46px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 243, 214, 0.32);
+  transform: translateX(-50%);
+}
+
 .cf-point-sheet__close {
   position: absolute;
-  z-index: 6;
+  z-index: 20;
   top: 12px;
   right: 12px;
   display: grid;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   place-items: center;
-  border: 1px solid rgba(255, 243, 214, 0.14);
+  border: 1px solid rgba(255, 243, 214, 0.2);
   border-radius: 50%;
   color: #fff7e8;
-  background: rgba(0, 0, 0, 0.38);
+  background: rgba(0, 0, 0, 0.52);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(14px);
+}
+
+.cf-point-sheet__close span {
+  display: block;
+  margin-top: -2px;
+  font-size: 1.7rem;
+  line-height: 1;
+  font-weight: 700;
 }
 
 .cf-point-sheet__hero {
   display: grid;
+  min-height: 0;
 }
 
 .cf-point-sheet__hero-media {
   position: relative;
-  min-height: 180px;
+  min-height: 150px;
+  max-height: 210px;
+  overflow: hidden;
 }
 
 .cf-point-sheet__hero-media img {
@@ -392,6 +420,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  padding-right: 48px;
 }
 
 .cf-point-sheet__chip {
@@ -416,7 +445,7 @@ body {
 .cf-point-sheet__hero-body {
   display: grid;
   gap: 10px;
-  padding: 16px 16px 6px;
+  padding: 16px 16px 10px;
 }
 
 .cf-point-sheet__eyebrow {
@@ -431,7 +460,7 @@ body {
   margin: 0;
   color: #ffdcc6;
   font-family: var(--rd-font-display, system-ui);
-  font-size: 2rem;
+  font-size: clamp(1.75rem, 9vw, 2.2rem);
   line-height: 0.9;
   letter-spacing: -0.06em;
 }
@@ -460,8 +489,11 @@ body {
 
 .cf-point-sheet__content {
   display: grid;
+  min-height: 0;
   gap: 12px;
-  padding: 0 16px 16px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 16px calc(16px + env(safe-area-inset-bottom));
 }
 
 .cf-point-sheet__panel {
@@ -701,8 +733,13 @@ body {
     bottom: 32px;
     left: auto;
     width: min(500px, calc(100vw - 64px));
+    max-height: none;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .cf-point-sheet__handle {
+    display: none;
   }
 
   .cf-point-sheet__hero {
@@ -713,6 +750,7 @@ body {
 
   .cf-point-sheet__hero-media {
     min-height: 100%;
+    max-height: none;
   }
 
   .cf-point-sheet__hero-body {

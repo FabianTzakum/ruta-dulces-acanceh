@@ -21,6 +21,7 @@ function selectPoint(point: RoutePoint) {
 
 function closePoint() {
   selectedPoint.value = null
+  mapCanvas.value?.clearSelection()
 }
 
 function recenterMap() {
