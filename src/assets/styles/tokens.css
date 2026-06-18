@@ -1,0 +1,34 @@
+:root {
+  color-scheme: dark;
+
+  --rd-background: #25002f;
+  --rd-background-strong: #16001f;
+  --rd-surface: #341047;
+  --rd-surface-soft: #42175b;
+  --rd-surface-glass: rgba(41, 8, 57, 0.78);
+
+  --rd-primary: #ff7a00;
+  --rd-primary-soft: #ffb15c;
+  --rd-primary-dark: #b44700;
+
+  --rd-secondary: #9f5cff;
+  --rd-tertiary: #ffd166;
+  --rd-bone: #fff3d6;
+  --rd-white: #fffaf0;
+
+  --rd-green: #45dc82;
+  --rd-amber: #ffca3a;
+  --rd-red: #ff5d73;
+  --rd-muted: #bfa7c9;
+
+  --rd-border: rgba(255, 243, 214, 0.16);
+  --rd-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+  --rd-glow: 0 0 32px rgba(255, 122, 0, 0.28);
+
+  --rd-font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --rd-font-body: 'Be Vietnam Pro', system-ui, sans-serif;
+  --rd-font-label: 'Space Grotesk', system-ui, sans-serif;
+
+  --rd-bottom-nav-height: 82px;
+  --rd-topbar-height: 72px;
+}

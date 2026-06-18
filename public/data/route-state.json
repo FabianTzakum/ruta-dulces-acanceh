@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "updated_at": "2026-10-31T18:30:00-06:00",
+  "points_url": "/data/points-v1.json",
+  "events_url": "/data/events-v1.json",
+  "gallery_url": "/data/gallery-v1.json"
+}

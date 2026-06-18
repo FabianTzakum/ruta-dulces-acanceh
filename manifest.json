@@ -1,0 +1,22 @@
+{
+  "size": "128x128 px",
+  "background": "transparent alpha",
+  "states": {
+    "with-candies": "green relief/glow, icon bright",
+    "few-candies": "yellow/amber relief/glow, icon slightly dimmer",
+    "no-candies": "desaturated/dim icon with gray relief/glow",
+    "event-active": "orange/magenta active relief/glow"
+  },
+  "files": [
+    "public/markers/marker-business-with-candies.png",
+    "public/markers/marker-business-few-candies.png",
+    "public/markers/marker-business-no-candies.png",
+    "public/markers/marker-house-with-candies.png",
+    "public/markers/marker-house-few-candies.png",
+    "public/markers/marker-house-no-candies.png",
+    "public/markers/marker-institution-with-candies.png",
+    "public/markers/marker-institution-few-candies.png",
+    "public/markers/marker-institution-no-candies.png",
+    "public/markers/marker-event-active.png"
+  ]
+}

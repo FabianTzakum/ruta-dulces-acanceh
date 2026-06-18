@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var vue_1 = require("vue");
+var pinia_1 = require("pinia");
+require("maplibre-gl/dist/maplibre-gl.css");
+var App_vue_1 = require("./App.vue");
+var router_1 = require("./app/router");
+require("./assets/styles/tokens.css");
+require("./assets/styles/base.css");
+require("./assets/styles/animations.css");
+require("./assets/styles/map.css");
+var app = (0, vue_1.createApp)(App_vue_1.default);
+app.use((0, pinia_1.createPinia)());
+app.use(router_1.router);
+app.mount('#app');

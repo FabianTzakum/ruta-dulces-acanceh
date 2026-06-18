@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "slug": "concurso-disfraces-parque-principal",
+    "title": "Concurso de disfraces",
+    "description": "Actividad especial en el centro de Acanceh durante la Ruta de los Dulces.",
+    "point_slug": "centro-tactico-de-operaciones",
+    "starts_at": "2026-10-31T18:30:00-06:00",
+    "status": "active",
+    "animation": "ghost-pulse"
+  }
+]

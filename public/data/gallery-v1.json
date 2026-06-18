@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "point_slug": "san-buenaventura",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en San Buenaventura.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 2,
+    "point_slug": "tendejon-amparito",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en Tendejón Amparito.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 3,
+    "point_slug": "la-bodega",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en La Bodega.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 4,
+    "point_slug": "midi-agencia-publicitaria",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en MIDI Agencia Publicitaria.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 5,
+    "point_slug": "xix-mario-noe",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en XIX Mario Noe.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 6,
+    "point_slug": "bambino-kids",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en Bambino Kids.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 7,
+    "point_slug": "catepi",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en CATEPI.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 8,
+    "point_slug": "ropa-americana-arif",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en Ropa americana ARIF.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 9,
+    "point_slug": "carbon-grey-s",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en Carbon Grey's.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 10,
+    "point_slug": "cafeto",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en CAFETO.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 11,
+    "point_slug": "refrigeracion-wl-tupperware",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en REFRIGERACION WL  -  TUPPERWARE.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  },
+  {
+    "id": 12,
+    "point_slug": "studio-de-belleza-dalia-paredes",
+    "author": "Ruta de los Dulces Acanceh",
+    "caption": "Ambiente comunitario en STUDIO DE BELLEZA DALIA PAREDES.",
+    "image_url": "https://images.unsplash.com/photo-1575224300306-1b8da36134ec?auto=format&fit=crop&w=1200&q=70",
+    "created_at": "2026-10-31T18:00:00-06:00"
+  }
+]

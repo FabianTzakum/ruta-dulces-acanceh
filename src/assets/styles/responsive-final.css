@@ -1,0 +1,201 @@
+.point-status--with_candies {
+  color: #102a18;
+  background: var(--st-green);
+}
+
+.point-status--few_candies {
+  color: #3b2f00;
+  background: var(--st-amber);
+}
+
+.point-status--no_candies {
+  color: #fff;
+  background: var(--st-red);
+}
+
+.point-status--available {
+  color: #102a18;
+  background: var(--st-green);
+}
+
+.point-status--low {
+  color: #3b2f00;
+  background: var(--st-amber);
+}
+
+.point-status--empty,
+.point-status--closed,
+.point-status--unknown,
+.point-status--event_active {
+  color: #fff;
+  background: var(--st-red);
+}
+
+.point-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.point-status__icon,
+.point-status .material-symbols-outlined {
+  font-size: 1rem;
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 650,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.map-legend__dot--with {
+  background: var(--st-green);
+}
+
+.map-legend__dot--few {
+  background: var(--st-amber);
+}
+
+.map-legend__dot--none {
+  background: var(--st-red);
+}
+
+.map-sheet__event,
+.point-card__event,
+.points-desktop-card__event,
+.point-detail-premium__event,
+.map-desktop-panel__event {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: #3b2f00;
+  background: var(--st-tertiary);
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.map-sheet__event .material-symbols-outlined,
+.point-card__event .material-symbols-outlined,
+.points-desktop-card__event .material-symbols-outlined,
+.point-detail-premium__event .material-symbols-outlined,
+.map-desktop-panel__event .material-symbols-outlined {
+  font-size: 1rem;
+}
+
+.map-desktop-panel__active-event {
+  display: flex;
+  gap: 12px;
+  border: 1px solid rgba(233, 196, 0, 0.22);
+  border-radius: 20px;
+  padding: 14px;
+  background: rgba(233, 196, 0, 0.08);
+}
+
+.map-desktop-panel__active-event > .material-symbols-outlined {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 15px;
+  color: #3b2f00;
+  background: var(--st-tertiary);
+}
+
+.map-desktop-panel__active-event strong {
+  display: block;
+  color: var(--st-tertiary);
+  font-family: var(--rd-font-display);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.map-desktop-panel__active-event p {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 6px 0 0;
+  color: var(--st-text-soft);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.map-sheet__event {
+  display: inline-flex;
+}
+
+.home-live__grid--three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.home-live__item--with > .material-symbols-outlined {
+  color: var(--st-green);
+}
+
+.home-live__item--few > .material-symbols-outlined {
+  color: var(--st-amber);
+}
+
+.home-live__item--none > .material-symbols-outlined {
+  color: var(--st-red);
+}
+
+.mobile-nav .router-link-active,
+.mobile-nav .router-link-exact-active {
+  color: #301400;
+  background: linear-gradient(135deg, var(--st-primary), var(--st-tertiary));
+  box-shadow: 0 0 24px rgba(255, 130, 0, 0.28);
+}
+
+.desktop-header__link.router-link-active,
+.desktop-header__link.router-link-exact-active {
+  color: #301400;
+  background: linear-gradient(135deg, var(--st-primary), var(--st-tertiary));
+}
+
+.desktop-header__link[href='/control'],
+.mobile-nav__item[href='/control'] {
+  display: none;
+}
+
+.app-shell__main--fullscreen .map-view {
+  top: var(--rd-topbar-height);
+}
+
+@media (min-width: 1024px) {
+  .app-shell__main--fullscreen .map-view {
+    top: var(--rd-desktop-header-height);
+  }
+
+  .mobile-topbar,
+  .mobile-nav {
+    display: none !important;
+  }
+
+  .desktop-header {
+    display: block;
+  }
+
+  .map-sheet {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .desktop-header {
+    display: none !important;
+  }
+
+  .map-desktop-panel {
+    display: none !important;
+  }
+}

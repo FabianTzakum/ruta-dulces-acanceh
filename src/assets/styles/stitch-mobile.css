@@ -1,0 +1,22 @@
+.point-status--with_candies {
+  color: #102a18;
+  background: var(--st-green);
+}
+
+.point-status--few_candies {
+  color: #3b2f00;
+  background: var(--st-amber);
+}
+
+.point-status--no_candies {
+  color: #fff;
+  background: var(--st-red);
+}
+
+.point-status--available,
+.point-status--low,
+.point-status--empty,
+.point-status--unknown,
+.point-status--event_active {
+  display: inline-flex;
+}

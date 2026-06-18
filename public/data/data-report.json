@@ -1,0 +1,22 @@
+{
+  "source_file": "Ruta de los Dulces Acanceh 2025 2a Ed.kml",
+  "total_placemarks": 186,
+  "categories": {
+    "Negocio": 143,
+    "Casa": 40,
+    "Institución pública": 3
+  },
+  "bounds": {
+    "min_lat": 20.8022444,
+    "max_lat": 20.825236,
+    "min_lng": -89.4704292,
+    "max_lng": -89.4413368,
+    "center_lat": 20.8132335,
+    "center_lng": -89.4535149
+  },
+  "notes": [
+    "Los nombres y coordenadas vienen del KML.",
+    "Los textos, estados, imágenes y galerías son ficticios temporales.",
+    "El KML contiene 186 puntos: 143 negocios, 40 casas y 3 instituciones públicas."
+  ]
+}
