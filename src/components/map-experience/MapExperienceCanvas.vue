@@ -18,6 +18,8 @@ const ACANCEH_ZOOM = 14.25
 const SOURCE_POINTS = 'route-points'
 const SOURCE_SELECTED = 'selected-point-effect'
 const SOURCE_EVENT = 'demo-event'
+const SOURCE_USER_POINT = 'user-location-point'
+const SOURCE_USER_ACCURACY = 'user-location-accuracy'
 
 const LAYER_POINTS_CLUSTER_GLOW = 'route-points-cluster-glow'
 const LAYER_POINTS_FALLBACK_BASE = 'route-points-fallback-base'
@@ -37,6 +39,11 @@ const LAYER_EVENT_CORE = 'demo-event-core'
 const LAYER_EVENT_ICON = 'demo-event-icon'
 const LAYER_EVENT_LABEL = 'demo-event-label'
 const LAYER_EVENT_HIT = 'demo-event-hit'
+
+const LAYER_USER_ACCURACY = 'user-location-accuracy'
+const LAYER_USER_GLOW = 'user-location-glow'
+const LAYER_USER_DOT = 'user-location-dot'
+const LAYER_USER_CORE = 'user-location-core'
 
 const ICON_EVENT_STATIC = 'marker-event-active'
 const ICON_EVENT_ANIMATED = 'event-active-spritesheet'
@@ -152,12 +159,19 @@ const DEMO_EVENT = {
   lat: 20.8147,
 }
 
+type PointGeometry = {
+  type: 'Point'
+  coordinates: [number, number]
+}
+
+type PolygonGeometry = {
+  type: 'Polygon'
+  coordinates: [number, number][][]
+}
+
 type MapFeature = {
   type: 'Feature'
-  geometry: {
-    type: 'Point'
-    coordinates: [number, number]
-  }
+  geometry: PointGeometry | PolygonGeometry
   properties: Record<string, string | number | boolean>
 }
 
@@ -332,6 +346,13 @@ const mapStyle: StyleSpecification = {
   ],
 }
 
+function emptyCollection(): MapFeatureCollection {
+  return {
+    type: 'FeatureCollection',
+    features: [],
+  }
+}
+
 function createMap() {
   if (!mapContainer.value) return
 
@@ -363,6 +384,7 @@ function createMap() {
 
     addPointLayers()
     addEventLayers()
+    addUserLocationLayers()
     bindInteractions()
     fitToAllPoints(false)
 
@@ -412,10 +434,7 @@ function buildPointCollection(): MapFeatureCollection {
 
 function buildSelectedCollection(): MapFeatureCollection {
   if (!selectedPoint.value) {
-    return {
-      type: 'FeatureCollection',
-      features: [],
-    }
+    return emptyCollection()
   }
 
   return {
@@ -442,10 +461,7 @@ function buildSelectedCollection(): MapFeatureCollection {
 
 function buildEventCollection(): MapFeatureCollection {
   if (!props.demoEventActive) {
-    return {
-      type: 'FeatureCollection',
-      features: [],
-    }
+    return emptyCollection()
   }
 
   return {
@@ -468,6 +484,72 @@ function buildEventCollection(): MapFeatureCollection {
       },
     ],
   }
+}
+
+function buildUserPointCollection(lng: number, lat: number): MapFeatureCollection {
+  return {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [lng, lat],
+        },
+        properties: {
+          type: 'user_location',
+        },
+      },
+    ],
+  }
+}
+
+function buildUserAccuracyCollection(lng: number, lat: number, accuracy: number): MapFeatureCollection {
+  return {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        geometry: {
+          type: 'Polygon',
+          coordinates: [createAccuracyCircle(lng, lat, Math.max(accuracy, 18))],
+        },
+        properties: {
+          type: 'user_accuracy',
+          accuracy,
+        },
+      },
+    ],
+  }
+}
+
+function createAccuracyCircle(lng: number, lat: number, radiusMeters: number) {
+  const steps = 64
+  const coordinates: [number, number][] = []
+  const earthRadius = 6378137
+  const latRad = (lat * Math.PI) / 180
+  const lngRad = (lng * Math.PI) / 180
+  const distance = radiusMeters / earthRadius
+
+  for (let index = 0; index <= steps; index += 1) {
+    const bearing = (index * 2 * Math.PI) / steps
+
+    const nextLat = Math.asin(
+      Math.sin(latRad) * Math.cos(distance) +
+        Math.cos(latRad) * Math.sin(distance) * Math.cos(bearing),
+    )
+
+    const nextLng =
+      lngRad +
+      Math.atan2(
+        Math.sin(bearing) * Math.sin(distance) * Math.cos(latRad),
+        Math.cos(distance) - Math.sin(latRad) * Math.sin(nextLat),
+      )
+
+    coordinates.push([(nextLng * 180) / Math.PI, (nextLat * 180) / Math.PI])
+  }
+
+  return coordinates
 }
 
 function loadImageElement(url: string): Promise<HTMLImageElement> {
@@ -1027,6 +1109,66 @@ function addEventLayers() {
   startEventAnimation()
 }
 
+function addUserLocationLayers() {
+  if (!map || map.getSource(SOURCE_USER_POINT)) return
+
+  map.addSource(SOURCE_USER_ACCURACY, {
+    type: 'geojson',
+    data: emptyCollection(),
+  })
+
+  map.addSource(SOURCE_USER_POINT, {
+    type: 'geojson',
+    data: emptyCollection(),
+  })
+
+  map.addLayer({
+    id: LAYER_USER_ACCURACY,
+    type: 'fill',
+    source: SOURCE_USER_ACCURACY,
+    paint: {
+      'fill-color': '#38bdf8',
+      'fill-opacity': 0.12,
+    },
+  })
+
+  map.addLayer({
+    id: LAYER_USER_GLOW,
+    type: 'circle',
+    source: SOURCE_USER_POINT,
+    paint: {
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 10, 15, 18, 18, 28],
+      'circle-color': '#38bdf8',
+      'circle-opacity': 0.24,
+      'circle-blur': 0.82,
+    },
+  })
+
+  map.addLayer({
+    id: LAYER_USER_DOT,
+    type: 'circle',
+    source: SOURCE_USER_POINT,
+    paint: {
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 5, 15, 8, 18, 11],
+      'circle-color': '#38bdf8',
+      'circle-stroke-width': 3,
+      'circle-stroke-color': '#f0f9ff',
+      'circle-opacity': 1,
+    },
+  })
+
+  map.addLayer({
+    id: LAYER_USER_CORE,
+    type: 'circle',
+    source: SOURCE_USER_POINT,
+    paint: {
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 12, 1.6, 15, 2.8, 18, 4],
+      'circle-color': '#ffffff',
+      'circle-opacity': 0.95,
+    },
+  })
+}
+
 function startEventAnimation() {
   stopEventAnimation()
 
@@ -1181,6 +1323,18 @@ function updateEventSource() {
   source.setData(buildEventCollection())
 }
 
+function updateUserLocation(lng: number, lat: number, accuracy: number) {
+  if (!map) return
+
+  const pointSource = map.getSource(SOURCE_USER_POINT) as GeoJSONSource | undefined
+  const accuracySource = map.getSource(SOURCE_USER_ACCURACY) as GeoJSONSource | undefined
+
+  if (!pointSource || !accuracySource) return
+
+  pointSource.setData(buildUserPointCollection(lng, lat))
+  accuracySource.setData(buildUserAccuracyCollection(lng, lat, accuracy))
+}
+
 function clearSelection() {
   selectedPoint.value = null
   updateSelectedSource()
@@ -1256,6 +1410,74 @@ function flyToDemoEvent() {
   })
 }
 
+function locateUser(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (!map) {
+      reject(new Error('El mapa todavía no está listo. Intenta de nuevo en unos segundos.'))
+      return
+    }
+
+    if (!navigator.geolocation) {
+      reject(new Error('Tu navegador no permite obtener ubicación.'))
+      return
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        if (!map) {
+          reject(new Error('El mapa dejó de estar disponible.'))
+          return
+        }
+
+        const lng = position.coords.longitude
+        const lat = position.coords.latitude
+        const accuracy = position.coords.accuracy || 25
+
+        updateUserLocation(lng, lat, accuracy)
+
+        map.easeTo({
+          center: [lng, lat],
+          zoom: Math.max(map.getZoom(), 17),
+          pitch: 18,
+          bearing: map.getBearing(),
+          duration: 760,
+          padding: {
+            top: 120,
+            right: window.innerWidth >= 1200 ? 560 : window.innerWidth >= 900 ? 470 : 32,
+            bottom: window.innerWidth >= 900 ? 130 : 270,
+            left: 32,
+          },
+        })
+
+        resolve()
+      },
+      (error) => {
+        if (error.code === error.PERMISSION_DENIED) {
+          reject(new Error('Permiso de ubicación denegado. Activa la ubicación para este sitio.'))
+          return
+        }
+
+        if (error.code === error.POSITION_UNAVAILABLE) {
+          reject(new Error('No se pudo detectar tu ubicación actual.'))
+          return
+        }
+
+        if (error.code === error.TIMEOUT) {
+          reject(new Error('La ubicación tardó demasiado. Intenta de nuevo.'))
+          return
+        }
+
+        reject(new Error('No se pudo obtener tu ubicación.'))
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 15000,
+      },
+    )
+  })
+}
+
 watch(
   () => visiblePoints.value.map((point) => `${point.id}-${point.status}`).join('|'),
   async () => {
@@ -1289,6 +1511,7 @@ defineExpose({
   fitToAllPoints,
   flyToDemoEvent,
   clearSelection,
+  locateUser,
 })
 </script>
 

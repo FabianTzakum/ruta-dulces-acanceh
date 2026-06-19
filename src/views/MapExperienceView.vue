@@ -13,6 +13,7 @@ const routeStore = useRouteStore()
 const selectedPoint = ref<RoutePoint | null>(null)
 const isMapLoading = ref(true)
 const isDemoEventActive = ref(false)
+const isLocatingUser = ref(false)
 const mapCanvas = ref<InstanceType<typeof MapExperienceCanvas> | null>(null)
 
 function selectPoint(point: RoutePoint) {
@@ -27,6 +28,24 @@ function closePoint() {
 function recenterMap() {
   selectedPoint.value = null
   mapCanvas.value?.fitToAllPoints()
+}
+
+async function locateUser() {
+  if (isLocatingUser.value) return
+
+  isLocatingUser.value = true
+
+  try {
+    await mapCanvas.value?.locateUser()
+  } catch (error) {
+    const message = error instanceof Error
+      ? error.message
+      : 'No se pudo obtener tu ubicación.'
+
+    window.alert(message)
+  } finally {
+    isLocatingUser.value = false
+  }
 }
 
 function toggleDemoEvent() {
@@ -79,7 +98,7 @@ function startGuide() {
         popover: {
           title: 'Controles del mapa',
           description:
-            'Puedes regresar al encuadre principal o actualizar los datos cuando la ruta esté conectada a la API.',
+            'Puedes regresar al encuadre principal, actualizar los datos o ver tu ubicación actual.',
           side: 'left',
           align: 'center',
         },
@@ -174,6 +193,12 @@ function startGuide() {
     <div class="cf-map-actions" data-tour="map-actions">
       <button type="button" aria-label="Centrar mapa" @click="recenterMap">
         <span class="material-symbols-outlined">center_focus_strong</span>
+      </button>
+
+      <button type="button" aria-label="Ver mi ubicación" @click="locateUser">
+        <span class="material-symbols-outlined" :class="{ 'cf-map-spin': isLocatingUser }">
+          my_location
+        </span>
       </button>
 
       <button type="button" aria-label="Actualizar datos" @click="forceRefresh">
