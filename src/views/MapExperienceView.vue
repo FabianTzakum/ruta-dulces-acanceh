@@ -145,7 +145,7 @@ function startGuide() {
     <header class="cf-map-minibar" data-tour="map-title">
       <div>
         <strong>Ruta de los Dulces</strong>
-        <small>Acanceh · {{ appConfig.isLocalData ? 'JSON local' : 'API conectada' }}</small>
+        <small>Acanceh </small>
       </div>
 
       <button type="button" aria-label="Iniciar guía" @click="startGuide">
@@ -163,9 +163,8 @@ function startGuide() {
       </div>
 
       <div>
-        <small>Prueba visual</small>
+       
         <strong>{{ isDemoEventActive ? 'Evento activo' : 'Activar evento' }}</strong>
-        <span>Animación segura con MapLibre</span>
       </div>
 
       <button

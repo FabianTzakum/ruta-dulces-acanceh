@@ -13,10 +13,5 @@
     "max_lng": -89.4413368,
     "center_lat": 20.8132335,
     "center_lng": -89.4535149
-  },
-  "notes": [
-    "Los nombres y coordenadas vienen del KML.",
-    "Los textos, estados, imágenes y galerías son ficticios temporales.",
-    "El KML contiene 186 puntos: 143 negocios, 40 casas y 3 instituciones públicas."
-  ]
+  }
 }
